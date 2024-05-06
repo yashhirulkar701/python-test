@@ -9,6 +9,7 @@ variables:
   name: Yash
 
 jobs:
-- job: 'Run one-line script'
+- job: 
+  displayName: 'Run one-line script'
   steps:
   - script: echo Hello, $(name)..!
