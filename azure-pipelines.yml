@@ -12,7 +12,7 @@ variables:
   name: Yash
 
 jobs:
-- job: 1
+- job: 
   displayName: 'Run one-line script'
   steps:
   - script: |
@@ -20,7 +20,7 @@ jobs:
       ls -l
       pwd
   
-- job: 2
+- job: 
   displayName: 'Build and Push container Image'
   steps:
   - task: Docker@2
