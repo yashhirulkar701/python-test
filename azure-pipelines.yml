@@ -19,7 +19,7 @@ jobs:
       echo Hello, $(name)..!
       ls -l
       pwd
-  
+  #
 - job: 
   displayName: 'Build and Push container Image'
   steps:
