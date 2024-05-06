@@ -12,10 +12,20 @@ variables:
   name: Yash
 
 jobs:
-- job: 
+- job: 1
   displayName: 'Run one-line script'
   steps:
   - script: |
       echo Hello, $(name)..!
       ls -l
       pwd
+  
+- job: 2
+  displayName: 'Build and Push container Image'
+  steps:
+  - task: Docker@2
+    inputs:
+      containerRegistry: acrtestregistry12.azurecr.io
+      command: 'buildAndPush'
+      Dockerfile: '**/Dockerfile'
+      tags: '$(Build.BuildId)' 
