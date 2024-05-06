@@ -26,7 +26,6 @@ jobs:
   - task: DockerInstaller@0
     inputs:
       dockerVersion: '20.10.21-0ubuntu1~20.04.2'
-      releaseType: stable
 
   - task: Docker@2
     inputs:
