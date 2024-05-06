@@ -1,5 +1,8 @@
 ---
 
+trigger:
+- master 
+
 pool:
   name: Default
   demands:
@@ -12,4 +15,7 @@ jobs:
 - job: 
   displayName: 'Run one-line script'
   steps:
-  - script: echo Hello, $(name)..!
+  - script: |
+      echo Hello, $(name)..!
+      ls -l
+      pwd
