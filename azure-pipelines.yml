@@ -27,8 +27,8 @@ jobs:
 
   - task: Docker@2
     inputs:
-      containerRegistry: 'acrtestregistry12' #service connection name
-      imageRepository: 'acr-service-connection'
+      containerRegistry: 'acr-service-connection' #service connection name
+      imageRepository: 'acrtestregistry12'
       command: 'buildAndPush'
       Dockerfile: '**/Dockerfile'
       tags: '$(Build.BuildId)' 
