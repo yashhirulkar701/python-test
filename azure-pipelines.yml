@@ -1,0 +1,14 @@
+---
+
+pool:
+  name: Default
+  demands:
+    - agent.name -equals devops-agent
+
+variables:
+  name: Yash
+
+jobs:
+- job: 'Run one-line script'
+  steps:
+  - script: echo Hello, $(name)..!
