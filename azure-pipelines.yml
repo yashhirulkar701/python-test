@@ -65,7 +65,7 @@
             chartPath: './fastapi-middleware'
             chartVersion: '0.1.0'
             releaseName: 'api-release'
-            overrideValues: 'image.repository=$(imageName) image.tag=$(Build.BuildId)'
+            overrideValues: 'image.repository=$(imageName),image.tag=$(Build.BuildId)'
             azureResourceGroupForACR: 'test-rg'
             azureSubscriptionForACR: 'azure-rm-acr-deploy-sc'
             azureContainerRegistry: 'acr-service-connection' #service connection name
