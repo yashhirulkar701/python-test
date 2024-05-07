@@ -10,32 +10,54 @@ pool:
 
 variables:
   name: Yash
+  imageName: python-app
 
-jobs:
-- job: 
-  displayName: 'Run one-line script'
-  steps:
-  - script: |
-      echo Hello, $(name)..!
-      ls -l
-      pwd
-      echo $(Build.sourcesdirectory)
+- stage: Build
+  displayName: Build stage
+    jobs:
+    - job: 
+      displayName: 'Run one-line script'
+      steps:
+      - script: |
+          echo Hello, $(name)..!
+          ls -l
+          echo System.DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
+          echo Pipeline.Workspace: '$(Pipeline.Workspace)'
 
-- job: Build
-  displayName: 'Build and Push container Image'
-  steps:
+    - job: Build
+      displayName: 'Build and Push container Image'
+      steps:
 
-  - task: Docker@2
-    inputs:
-      containerRegistry: 'acr-service-connection' #service connection name
-      repository: 'python-app'
-      command: 'buildAndPush'
-      Dockerfile: '**/Dockerfile'
-      tags: '$(Build.BuildId)' 
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'acr-service-connection' #service connection name
+          repository: '$(imageName)' #image name
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
+          tags: '$(Build.BuildId)' 
 
-# - task: Docker@2
-#   inputs:
-#     containerRegistry: 'acr-service-connection'
-#     repository: 'python-app'
-#     command: 'buildAndPush'
-#     Dockerfile: '**/Dockerfile'
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+
+    jobs:
+    - job:
+      displayName: 'Install Kubectl and Helm'
+
+      steps:
+      - task: HelmInstaller@0
+      inputs:
+        helmVersion: '2.14.1'
+        installKubectl: true
+
+      - task: HelmDeploy@0
+        inputs:
+          connectionType: 'Kubernetes Service Connection'
+          kubernetesServiceConnection: 'aks-service-connection'
+          namespace: 'default'
+          command: 'upgrade'
+          chartType: 'FilePath'
+          chartPath: './fastapi-middleware'
+          chartVersion: '0.1.0'
+          releaseName: 'api-release'
+          overrideValues: 'image.repository=$(imageName) image.tag=$(Build.BuildId)'
