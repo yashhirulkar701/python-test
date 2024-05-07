@@ -65,5 +65,5 @@
             releaseName: 'api-release'
             overrideValues: 'image.repository=$(imageName) image.tag=$(Build.BuildId)'
             azureResourceGroupForACR: 'test-rg'
-            azureSubscriptionForACR: '6c0555ee-e296-4653-be7e-e34f798eceac'
+            azureSubscriptionForACR: 'acr-service-connection'
             azureContainerRegistry: 'acr-service-connection' #service connection name
