@@ -60,7 +60,7 @@
             connectionType: 'Kubernetes Service Connection'
             kubernetesServiceConnection: 'aks-service-connection'
             namespace: 'default'
-            command: 'upgrade'
+            command: 'install'
             chartType: 'FilePath'
             chartPath: './fastapi-middleware'
             chartVersion: '0.1.0'
