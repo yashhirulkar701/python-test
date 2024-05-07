@@ -4,9 +4,9 @@
   - master 
   
   pool:
-    name: Default
+    name: Azure Pipelines
     demands:
-      - agent.name -equals devops-agent
+      - agent.name -equals Hosted Agent
   
   variables:
     name: Yash
