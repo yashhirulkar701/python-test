@@ -10,7 +10,7 @@
   
   variables:
     name: Yash
-    imageName: python-app
+    imageName: acrtestregistry12.azurecr.io/python-app
   
   stages:
     - stage: Build
