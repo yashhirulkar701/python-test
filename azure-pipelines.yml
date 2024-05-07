@@ -37,21 +37,27 @@
             command: 'buildAndPush'
             Dockerfile: '**/Dockerfile'
             tags: '$(Build.BuildId)' 
+
+        - task: PublishBuildArtifacts@1
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'
+            publishLocation: 'Container'
   
     - stage: Deploy
       displayName: Deploy stage
       dependsOn: Build
   
       jobs:
-      - job:
-        displayName: 'Install Kubectl and Helm'
-        steps:
-        - task: HelmInstaller@0
-          inputs:
-            helmVersion: '2.14.1'
-            installKubectl: true
-            kubectlVersion: '1.8.9'
-            checkLatestKubeCtl: true
+      # - job:
+      #   displayName: 'Install Kubectl and Helm'
+      #   steps:
+      #   - task: HelmInstaller@0
+      #     inputs:
+      #       helmVersion: '2.14.1'
+      #       installKubectl: true
+      #       kubectlVersion: '1.8.9'
+      #       checkLatestKubeCtl: true
   
       - job:
         displayName: 'Deploy with Helm'
