@@ -46,35 +46,35 @@
             ArtifactName: 'drop'
             publishLocation: 'Container'
   
-    - stage: Deploy
-      displayName: Deploy stage
-      dependsOn: Build
+    # - stage: Deploy
+    #   displayName: Deploy stage
+    #   dependsOn: Build
   
-      jobs:
-      # - job:
-      #   displayName: 'Install Kubectl and Helm'
-      #   steps:
-      #   - task: HelmInstaller@0
-      #     inputs:
-      #       helmVersion: '2.14.1'
-      #       installKubectl: true
-      #       kubectlVersion: '1.8.9'
-      #       checkLatestKubeCtl: true
+    #   jobs:
+    #   # - job:
+    #   #   displayName: 'Install Kubectl and Helm'
+    #   #   steps:
+    #   #   - task: HelmInstaller@0
+    #   #     inputs:
+    #   #       helmVersion: '2.14.1'
+    #   #       installKubectl: true
+    #   #       kubectlVersion: '1.8.9'
+    #   #       checkLatestKubeCtl: true
   
-      - job:
-        displayName: 'Deploy with Helm'
-        steps:
-        - task: 'HelmDeploy@0'
-          inputs:
-            connectionType: 'Kubernetes Service Connection'
-            kubernetesServiceConnection: 'aks-service-connection'
-            namespace: 'default'
-            command: 'upgrade'
-            chartType: 'FilePath'
-            chartPath: './fastapi-middleware'
-            chartVersion: '0.1.0'
-            releaseName: 'api-release'
-            overrideValues: 'image.repository=$(acr-registry)/$(imageName),image.tag=$(Build.BuildId)'
-            azureResourceGroupForACR: 'test-rg'
-            azureSubscriptionForACR: 'azure-rm-acr-deploy-sc'
-            azureContainerRegistry: 'acr-service-connection' #service connection name
+    #   - job:
+    #     displayName: 'Deploy with Helm'
+    #     steps:
+    #     - task: 'HelmDeploy@0'
+    #       inputs:
+    #         connectionType: 'Kubernetes Service Connection'
+    #         kubernetesServiceConnection: 'aks-service-connection'
+    #         namespace: 'default'
+    #         command: 'upgrade'
+    #         chartType: 'FilePath'
+    #         chartPath: './fastapi-middleware'
+    #         chartVersion: '0.1.0'
+    #         releaseName: 'api-release'
+    #         overrideValues: 'image.repository=$(acr-registry)/$(imageName),image.tag=$(Build.BuildId)'
+    #         azureResourceGroupForACR: 'test-rg'
+    #         azureSubscriptionForACR: 'azure-rm-acr-deploy-sc'
+    #         azureContainerRegistry: 'acr-service-connection' #service connection name
