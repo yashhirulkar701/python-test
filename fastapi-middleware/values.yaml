@@ -84,12 +84,12 @@ resources:
 
 livenessProbe:
   httpGet:
-    path: /docs
-    port: 8000
+    path: /
+    port: 5002
 readinessProbe:
   httpGet:
-    path: /docs
-    port: 8000
+    path: /
+    port: 5002
 
 autoscaling:
   enabled: true
