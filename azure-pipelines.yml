@@ -49,6 +49,8 @@
           inputs:
             helmVersion: '2.14.1'
             installKubectl: true
+            kubectlVersion: '1.8.9'
+            checkLatestKubeCtl: true
   
       - job:
         displayName: 'Deploy with Helm'
