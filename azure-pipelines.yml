@@ -31,7 +31,7 @@ stages:
           pwd
           echo Helm Template
           helm template $(System.DefaultWorkingDirectory)/fastapi-middleware
-          ls -l 
+          
 
     - job: Build
       displayName: 'Build and Push container Image'
