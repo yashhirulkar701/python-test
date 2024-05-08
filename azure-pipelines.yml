@@ -1,11 +1,6 @@
 ---
-# trigger:
-pr:
-  branches:
-    include:
-      - master
-    exclude:
-      - dev
+trigger:
+- dev
 
 pool:
   name: Default
