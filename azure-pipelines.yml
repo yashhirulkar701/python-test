@@ -20,13 +20,29 @@ stages:
     - job: 
       displayName: 'Run one-line script'
       steps:
+
+      - task: DockerInstaller@0
+        displayName: Docker Installer
+        inputs:
+          dockerVersion: 17.09.0-ce
+          releaseType: stable 
+
+      - task: HelmInstaller@0
+        inputs:
+          helmVersion: '3.14.2'
+          installKubectl: true
+          kubectlVersion: '1.30.0'
+
       - script: |
           echo Hello, $(name).!
           echo System.DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
           echo Pipeline.Workspace: '$(Pipeline.Workspace)'
           echo Build.ArtifactStagingDirectory: '$(Build.ArtifactStagingDirectory)'
           pwd
-          echo Helm Template
+          echo Helm version:
+          helm version --short
+          echo kubectl version:
+          kubectl version
           helm template $(System.DefaultWorkingDirectory)/fastapi-middleware
           
 
