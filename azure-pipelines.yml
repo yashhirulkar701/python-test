@@ -3,7 +3,9 @@
 pr:
   branches:
     include:
-    - master
+      - master
+    exclude:
+      - dev
 
 pool:
   name: Default
