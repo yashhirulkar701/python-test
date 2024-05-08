@@ -61,7 +61,7 @@
     #   #       helmVersion: '2.14.1'
     #   #       installKubectl: true
     #   #       kubectlVersion: '1.8.9'
-    #   #       checkLatestKubeCtl: true
+    #   #     checkLatestKubeCtl: true
   
     #   - job:
     #     displayName: 'Deploy with Helm'
@@ -80,3 +80,4 @@
     #         azureResourceGroupForACR: 'test-rg'
     #         azureSubscriptionForACR: 'azure-rm-acr-deploy-sc'
     #         azureContainerRegistry: 'acr-service-connection' #service connection name
+    #
