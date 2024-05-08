@@ -1,7 +1,9 @@
 ---
 
-  trigger:
-  - master 
+  pr:
+    branches:
+      include:
+      - master
   
   pool:
     name: Default
