@@ -1,83 +1,86 @@
 ---
+# trigger:
+pr:
+  branches:
+    include:
+    - master
 
-  trigger:
-  - master 
-  
-  pool:
-    name: Default
-    demands:
-      - agent.name -equals devops-agent
-  
-  variables:
-    name: Yash
-    imageName: python-app
-    acr-registry: acrtestregistry12.azurecr.io
-  
-  stages:
-    - stage: Build
-      displayName: Build stage
-      jobs:
-      - job: 
-        displayName: 'Run one-line script'
-        steps:
-        - script: |
-            echo Hello, $(name)..!
-            ls -l
-            echo System.DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
-            echo Pipeline.Workspace: '$(Pipeline.Workspace)'
-            echo Build.ArtifactStagingDirectory: '$(Build.ArtifactStagingDirectory)'
-            pwd
-            echo Helm Template
-            helm template $(System.DefaultWorkingDirectory)/fastapi-middleware
-  
-      - job: Build
-        displayName: 'Build and Push container Image'
-        steps:
-  
-        - task: Docker@2
-          inputs:
-            containerRegistry: 'acr-service-connection' #service connection name
-            repository: '$(imageName)' #image name
-            command: 'buildAndPush'
-            Dockerfile: '**/Dockerfile'
-            tags: '$(Build.BuildId)' 
+pool:
+  name: Default
+  demands:
+    - agent.name -equals devops-agent
 
-        - task: PublishBuildArtifacts@1
-          inputs:
-            PathtoPublish: '$(System.DefaultWorkingDirectory)'
-            ArtifactName: 'drop'
-            publishLocation: 'Container'
-  
-    # - stage: Deploy
-    #   displayName: Deploy stage
-    #   dependsOn: Build
-  
-    #   jobs:
-    #   # - job:
-    #   #   displayName: 'Install Kubectl and Helm'
-    #   #   steps:
-    #   #   - task: HelmInstaller@0
-    #   #     inputs:
-    #   #       helmVersion: '2.14.1'
-    #   #       installKubectl: true
-    #   #       kubectlVersion: '1.8.9'
-    #   #     checkLatestKubeCtl: true
-  
-    #   - job:
-    #     displayName: 'Deploy with Helm'
-    #     steps:
-    #     - task: 'HelmDeploy@0'
-    #       inputs:
-    #         connectionType: 'Kubernetes Service Connection'
-    #         kubernetesServiceConnection: 'aks-service-connection'
-    #         namespace: 'default'
-    #         command: 'upgrade'
-    #         chartType: 'FilePath'
-    #         chartPath: './fastapi-middleware'
-    #         chartVersion: '0.1.0'
-    #         releaseName: 'api-release'
-    #         overrideValues: 'image.repository=$(acr-registry)/$(imageName),image.tag=$(Build.BuildId)'
-    #         azureResourceGroupForACR: 'test-rg'
-    #         azureSubscriptionForACR: 'azure-rm-acr-deploy-sc'
-    #         azureContainerRegistry: 'acr-service-connection' #service connection name
-    #
+variables:
+  name: Yash
+  imageName: python-app
+  acr-registry: acrtestregistry12.azurecr.io
+
+stages:
+  - stage: Build
+    displayName: Build stage
+    jobs:
+    - job: 
+      displayName: 'Run one-line script'
+      steps:
+      - script: |
+          echo Hello, $(name)..!
+          ls -l
+          echo System.DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
+          echo Pipeline.Workspace: '$(Pipeline.Workspace)'
+          echo Build.ArtifactStagingDirectory: '$(Build.ArtifactStagingDirectory)'
+          pwd
+          echo Helm Template
+          helm template $(System.DefaultWorkingDirectory)/fastapi-middleware
+          ls -l 
+
+    - job: Build
+      displayName: 'Build and Push container Image'
+      steps:
+
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'acr-service-connection' #service connection name
+          repository: '$(imageName)' #image name
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
+          tags: '$(Build.BuildId)' 
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(System.DefaultWorkingDirectory)'
+          ArtifactName: 'drop'
+          publishLocation: 'Container'
+
+  # - stage: Deploy
+  #   displayName: Deploy stage
+  #   dependsOn: Build
+
+  #   jobs:
+  #   # - job:
+  #   #   displayName: 'Install Kubectl and Helm'
+  #   #   steps:
+  #   #   - task: HelmInstaller@0
+  #   #     inputs:
+  #   #       helmVersion: '2.14.1'
+  #   #       installKubectl: true
+  #   #       kubectlVersion: '1.8.9'
+  #   #     checkLatestKubeCtl: true
+
+  #   - job:
+  #     displayName: 'Deploy with Helm'
+  #     steps:
+  #     - task: 'HelmDeploy@0'
+  #       inputs:
+  #         connectionType: 'Kubernetes Service Connection'
+  #         kubernetesServiceConnection: 'aks-service-connection'
+  #         namespace: 'default'
+  #         command: 'upgrade'
+  #         chartType: 'FilePath'
+  #         chartPath: './fastapi-middleware'
+  #         chartVersion: '0.1.0'
+  #         releaseName: 'api-release'
+  #         overrideValues: 'image.repository=$(acr-registry)/$(imageName),image.tag=$(Build.BuildId)'
+  #         azureResourceGroupForACR: 'test-rg'
+  #         azureSubscriptionForACR: 'azure-rm-acr-deploy-sc'
+  #         azureContainerRegistry: 'acr-service-connection' #service connection name
+  #
