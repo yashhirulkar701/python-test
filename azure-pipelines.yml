@@ -12,6 +12,7 @@ pool:
   demands:
     - agent.name -equals devops-agent
 
+
 variables:
   name: Yash
   imageName: python-app
