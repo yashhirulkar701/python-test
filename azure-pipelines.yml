@@ -3,9 +3,9 @@ trigger:
 - dev
 
 pool:
-  name: Default
-  demands:
-    - agent.name -equals devops-agent
+  name: aks
+  # demands:
+  #   - agent.name -equals devops-agent
 
 
 variables:
