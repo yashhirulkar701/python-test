@@ -19,7 +19,7 @@ variables:
 
 stages:
   - stage: Build
-    displayName: Build stage
+    displayName: Build stage1
     jobs:
     - job: 
       displayName: 'Run one-line script'
