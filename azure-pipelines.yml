@@ -21,6 +21,13 @@ stages:
       displayName: 'Run one-line script'
       steps:
 
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Write your commands here
+            sudo apt install unzip -y
+
       - task: DockerInstaller@0
         displayName: Docker Installer
         inputs:
