@@ -22,7 +22,6 @@ stages:
       steps:
       - script: |
           echo Hello, $(name)..!
-          ls -l
           echo System.DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
           echo Pipeline.Workspace: '$(Pipeline.Workspace)'
           echo Build.ArtifactStagingDirectory: '$(Build.ArtifactStagingDirectory)'
