@@ -21,7 +21,7 @@ stages:
       displayName: 'Run one-line script'
       steps:
       - script: |
-          echo Hello, $(name)....!
+          echo Hello, $(name).!
           echo System.DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
           echo Pipeline.Workspace: '$(Pipeline.Workspace)'
           echo Build.ArtifactStagingDirectory: '$(Build.ArtifactStagingDirectory)'
