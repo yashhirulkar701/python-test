@@ -27,6 +27,8 @@
             echo Pipeline.Workspace: '$(Pipeline.Workspace)'
             echo Build.ArtifactStagingDirectory: '$(Build.ArtifactStagingDirectory)'
             pwd
+            echo Helm Template
+            helm template $(System.DefaultWorkingDirectory)/fastapi-middleware
   
       - job: Build
         displayName: 'Build and Push container Image'
