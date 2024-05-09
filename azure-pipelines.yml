@@ -3,7 +3,7 @@ trigger:
 - dev
 
 pool:
-  name: Azure Pipelines
+  name: aks
   # demands:
   #   - agent.name -equals devops-agent
 
