@@ -3,7 +3,7 @@ trigger:
 - dev
 
 pool:
-  name: aks
+  name: Azure Pipelines
   # demands:
   #   - agent.name -equals devops-agent
 
@@ -24,7 +24,7 @@ stages:
       - task: DockerInstaller@0
         displayName: Docker Installer
         inputs:
-          dockerVersion: 17.09.0-ce
+          dockerVersion: 20.10.0
           releaseType: stable 
 
       - task: HelmInstaller@0
@@ -52,7 +52,7 @@ stages:
 
       - task: Docker@2
         inputs:
-          containerRegistry: 'acr-service-connection' #service connection name
+          containerRegistry: 'test-registry-sc'    #'acr-service-connection' #service connection name
           repository: '$(imageName)' #image name
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
