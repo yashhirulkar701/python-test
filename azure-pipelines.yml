@@ -38,6 +38,10 @@ stages:
           echo System.DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
           echo Pipeline.Workspace: '$(Pipeline.Workspace)'
           echo Build.ArtifactStagingDirectory: '$(Build.ArtifactStagingDirectory)'
+          echo System.ArtifactsDirectory: '$(System.ArtifactsDirectory)'
+          echo Release.PrimaryArtifactSourceAlias: '$(Release.PrimaryArtifactSourceAlias)'
+          echo Release.TriggeringArtifact.Alias: '$(Release.TriggeringArtifact.Alias)'
+          echo Agent.Name: '$(Agent.Name)'
           pwd
           echo Helm version:
           helm version --short
